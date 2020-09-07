@@ -1,24 +1,28 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react'
+import IMGloading from '../../imagenes/loading.gif'
 
 export default function VisorPeliculas(props) {
     const [peliculas, setPeliculas] = useState([])
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-        fetch('https://api-movies-users.vercel.app/movies')
-            .then(r => r.json())
-            .then(movies => {
-                setPeliculas(movies)
-            })
+        async function obtenerPeliculasIniciales(){
+           let peliculas = await obtenerPeliculas()
+           setPeliculas(peliculas)
+           setLoading(false)
+        }
+        obtenerPeliculasIniciales()
     }, [])
 
     const obtenerPeliculas = async() => {
+        setLoading(true)
         let respuesta = await fetch('https://api-movies-users.vercel.app/movies')
         let peliculas = await respuesta.json()
         return peliculas
     }
 
-    let fintrarPeliculas = async(e) => {
+    let filtrarPeliculas = async(e) => {
         let peliculaServicio = await obtenerPeliculas()
         let filtro = document.querySelector("#filtro").value.toLowerCase()
         let resultado = peliculaServicio.filter(function(pelicula){
@@ -26,11 +30,13 @@ export default function VisorPeliculas(props) {
             return tituloMin.indexOf(filtro) >= 0
         })
         setPeliculas(resultado)
+        setLoading(false)
     }
 
     return (
         <section>
-            <input type="text" id="filtro" onKeyUp={fintrarPeliculas} placeholder="Filtrar por titulo"/>
+            <input type="text" id="filtro" onKeyUp={filtrarPeliculas} placeholder="Filtrar por titulo"/>
+            {loading===true?<span><img src={IMGloading} alt="cargando..."/></span>:""}
             <table border="1">
                 <thead>
                     <tr>
