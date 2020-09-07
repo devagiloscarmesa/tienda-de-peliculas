@@ -1,21 +1,22 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react'
 import FiltroPelicula from './FiltroPelicula'
+import DatosUsuario from '../DatosUsuario'
 
 export default function VisorPeliculas(props) {
     const [peliculas, setPeliculas] = useState([])
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-        async function obtenerPeliculasIniciales(){
-           let peliculas = await obtenerPeliculas()
-           setPeliculas(peliculas)
-           setLoading(false)
+        async function obtenerPeliculasIniciales() {
+            let peliculas = await obtenerPeliculas()
+            setPeliculas(peliculas)
+            setLoading(false)
         }
         obtenerPeliculasIniciales()
     }, [])
 
-    const obtenerPeliculas = async() => {
+    const obtenerPeliculas = async () => {
         setLoading(true)
         let respuesta = await fetch('https://api-movies-users.vercel.app/movies')
         let peliculas = await respuesta.json()
@@ -26,7 +27,7 @@ export default function VisorPeliculas(props) {
 
     return (
         <section>
-            <FiltroPelicula obtenerPeliculas = {obtenerPeliculas} setPeliculas={setPeliculas} loading={loading} setLoading={setLoading}/>
+            <FiltroPelicula obtenerPeliculas={obtenerPeliculas} setPeliculas={setPeliculas} loading={loading} setLoading={setLoading} />
             <table border="1">
                 <thead>
                     <tr>
@@ -47,16 +48,21 @@ export default function VisorPeliculas(props) {
                             <td>{pelicula.id}</td>
                             <td>{pelicula.title}</td>
                             <td>{pelicula.year}</td>
-                            <td><img src={pelicula.cover} alt={pelicula.title}/></td>
+                            <td><img src={pelicula.cover} alt={pelicula.title} /></td>
                             <td>{pelicula.description}</td>
                             <td>{pelicula.duration}</td>
                             <td>{pelicula.contentRating}</td>
-                            <td><a href={pelicula.source}  rel="noopener noreferrer">enlace</a></td>
+                            <td><a href={pelicula.source} rel="noopener noreferrer">enlace</a></td>
                             <td><ul>{pelicula.tags.map((tag, index) => <li key={index}>{tag}</li>)}</ul></td>
                         </tr>
                     })}
                 </tbody>
             </table>
+            <DatosUsuario.Consumer>
+                {usuario => <div>
+                    <p>Nombre de usuario: {usuario.userName}</p>
+                </div>}
+            </DatosUsuario.Consumer>
         </section>
     )
 }
