@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react'
-import IMGloading from '../../imagenes/loading.gif'
+import FiltroPelicula from './FiltroPelicula'
 
 export default function VisorPeliculas(props) {
     const [peliculas, setPeliculas] = useState([])
@@ -22,21 +22,11 @@ export default function VisorPeliculas(props) {
         return peliculas
     }
 
-    let filtrarPeliculas = async(e) => {
-        let peliculaServicio = await obtenerPeliculas()
-        let filtro = document.querySelector("#filtro").value.toLowerCase()
-        let resultado = peliculaServicio.filter(function(pelicula){
-            let tituloMin = pelicula.title.toLowerCase()
-            return tituloMin.indexOf(filtro) >= 0
-        })
-        setPeliculas(resultado)
-        setLoading(false)
-    }
+
 
     return (
         <section>
-            <input type="text" id="filtro" onKeyUp={filtrarPeliculas} placeholder="Filtrar por titulo"/>
-            {loading===true?<span><img src={IMGloading} alt="cargando..."/></span>:""}
+            <FiltroPelicula obtenerPeliculas = {obtenerPeliculas} setPeliculas={setPeliculas} loading={loading} setLoading={setLoading}/>
             <table border="1">
                 <thead>
                     <tr>
