@@ -16,6 +16,8 @@ const InsertarPelicula = () => {
             "test 2"
         ]
     })
+    const [validated, setValidated] = useState(false);
+
 
     let capturaDatosFormulario = (e) => {
         let pelicula = dataPelicula
@@ -25,28 +27,36 @@ const InsertarPelicula = () => {
 
     let enviarPelicula = async (e) => {
         e.preventDefault();
-        let respuesta = await fetch('https://api-movies-users.vercel.app/movies', { method: 'POST', body: JSON.stringify(dataPelicula), headers: { 'Content-Type': 'application/json' } })
-        let pelicula = await respuesta.json()
-        if (respuesta.status === 201) {
-            alert(`Pelicula con ID ${pelicula.id} insertada`)
+        const form = e.currentTarget;
+        if (form.checkValidity() === false) {
+            e.stopPropagation();
+        } else {
+            let respuesta = await fetch('https://api-movies-users.vercel.app/movies', { method: 'POST', body: JSON.stringify(dataPelicula), headers: { 'Content-Type': 'application/json' } })
+            let pelicula = await respuesta.json()
+            if (respuesta.status === 201) {
+                alert(`Pelicula con ID ${pelicula.id} insertada`)
+            }
         }
+        setValidated(true);
     }
 
     // const contextType = <DatosUsuario/>
     //    console.log(contextType)
     return (
-        <Form id="frm_insertar_pelicula" onSubmit={enviarPelicula}>
+        <Form noValidate validated={validated} onSubmit={enviarPelicula}>
             <Row>
                 <Col>
                     <Form.Group controlId="title">
                         <Form.Label>Titulo (*)</Form.Label>
                         <Form.Control type="text" name="title" placeholder="Titulo" defaultValue={dataPelicula.title} onChange={capturaDatosFormulario} required />
+                        <Form.Control.Feedback type="invalid">Valide el campo titulo</Form.Control.Feedback>
                     </Form.Group>
                 </Col>
                 <Col>
                     <Form.Group controlId="year">
                         <Form.Label>Año (*)</Form.Label>
                         <Form.Control type="number" name="year" placeholder="YYYY" min="2010" max="2020" defaultValue={dataPelicula.year} onChange={capturaDatosFormulario} required />
+                        <Form.Control.Feedback type="invalid">Valide el campo año</Form.Control.Feedback>
                     </Form.Group>
                 </Col>
             </Row>
@@ -55,12 +65,14 @@ const InsertarPelicula = () => {
                     <Form.Group controlId="cover">
                         <Form.Label>Caratula (*)</Form.Label>
                         <Form.Control type="url" name="cover" placeholder="Caratula de la portada" defaultValue={dataPelicula.cover} onChange={capturaDatosFormulario} required />
+                        <Form.Control.Feedback type="invalid">Valide el campo caratula</Form.Control.Feedback>
                     </Form.Group>
                 </Col>
                 <Col>
                     <Form.Group controlId="source">
                         <Form.Label>Fuente (*)</Form.Label>
                         <Form.Control type="url" name="source" placeholder="URL Fuente" defaultValue={dataPelicula.source} onChange={capturaDatosFormulario} required />
+                        <Form.Control.Feedback type="invalid">Valide el campo Fuente</Form.Control.Feedback>
                     </Form.Group>
                 </Col>
             </Row>

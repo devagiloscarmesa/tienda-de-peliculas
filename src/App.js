@@ -2,14 +2,14 @@ import React from 'react';
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 import VisorPeliculas from './components/peliculas/VisorPeliculas';
 import InsertarPelicula from './components/peliculas/InsertarPelicula';
 import DatosUsuario from './context/DatosUsuario';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container } from 'react-bootstrap';
+import VerPelicula from './components/peliculas/VerPelicula';
 
 
 function App() {
@@ -25,7 +25,7 @@ function App() {
               <VisorPeliculas />
             </Route>
             <Route path="/view/:id">
-              <VisorPeliculas />
+              <VerPelicula/>
             </Route>
             <Route path="/delete/:id">
               <VisorPeliculas />

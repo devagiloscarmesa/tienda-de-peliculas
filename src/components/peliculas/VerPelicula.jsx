@@ -1,7 +1,14 @@
 
 import React, { Component } from 'react';
 import DatosUsuario from '../../context/DatosUsuario'
+import {Link, Route} from 'react-router-dom';
+
 class VerPelicula extends Component {
+
+    constructor(props){
+        super(props);
+        console.log(props.match);
+    }
     render() {
         return (
             <div>
