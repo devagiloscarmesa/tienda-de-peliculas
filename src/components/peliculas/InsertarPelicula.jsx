@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import DatosUsuario from '../DatosUsuario';
+import DatosUsuario from '../../context/DatosUsuario';
 
 const InsertarPelicula = () => {
     const [dataPelicula, setDataPelicula] = useState({
