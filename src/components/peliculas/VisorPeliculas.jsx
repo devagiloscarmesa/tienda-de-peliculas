@@ -68,6 +68,7 @@ export default function VisorPeliculas(props) {
                 }}
             </DatosUsuario.Consumer>
             <MiniPelicula />
+            <VerPelicula/>
         </>
     )
 }
