@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { useEffect } from 'react'
 import FiltroPelicula from './FiltroPelicula'
 import DatosUsuario from '../../context/DatosUsuario'
@@ -7,7 +7,7 @@ import VerPelicula from './VerPelicula'
 export default function VisorPeliculas(props) {
     const [peliculas, setPeliculas] = useState([])
     const [loading, setLoading] = useState(false)
-
+    const contextUsuario = useContext(DatosUsuario)
     useEffect(() => {
         async function obtenerPeliculasIniciales() {
             let peliculas = await obtenerPeliculas()
@@ -57,7 +57,7 @@ export default function VisorPeliculas(props) {
                     })}
                 </tbody>
             </table>
-
+            {/*}
             <DatosUsuario.Consumer>
                 {(value) => {
                     return <div>
@@ -67,6 +67,12 @@ export default function VisorPeliculas(props) {
                     </div>
                 }}
             </DatosUsuario.Consumer>
+            {*/}
+            <div>
+                <p>Nombre usuario: {contextUsuario.userName}</p>
+                <p>Nombre: {contextUsuario.fullName}</p>
+                <p>Apellido: {contextUsuario.lastName}</p>
+            </div>
             <MiniPelicula />
             <VerPelicula/>
         </>
