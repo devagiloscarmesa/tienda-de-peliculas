@@ -24,9 +24,7 @@ function App() {
             <Route path="/update/:id">
               <VisorPeliculas />
             </Route>
-            <Route path="/view/:id">
-              <VerPelicula/>
-            </Route>
+            <Route path="/view/:id" render = {(props) => <VerPelicula {...props} /> }/>
             <Route path="/delete/:id">
               <VisorPeliculas />
             </Route>
