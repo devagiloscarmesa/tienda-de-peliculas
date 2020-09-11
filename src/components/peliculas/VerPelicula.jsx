@@ -1,8 +1,5 @@
-
 import React, { Component } from 'react';
-import { Table } from 'react-bootstrap';
 import DatosUsuario from '../../context/DatosUsuario'
-import { Link, Route } from 'react-router-dom';
 import PeliculaTable from './PeliculaTable';
 
 class VerPelicula extends Component {

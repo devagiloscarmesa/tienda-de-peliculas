@@ -10,6 +10,7 @@ import DatosUsuario from './context/DatosUsuario';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container } from 'react-bootstrap';
 import VerPelicula from './components/peliculas/VerPelicula';
+import HVerPelicula from './components/peliculas/HVerPelicula';
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
               <VisorPeliculas />
             </Route>
             <Route path="/view/:id" render = {(props) => <VerPelicula {...props} /> }/>
+            <Route path="/hview/:id" render = {(props) => <HVerPelicula {...props} /> }/>
             <Route path="/delete/:id">
               <VisorPeliculas />
             </Route>

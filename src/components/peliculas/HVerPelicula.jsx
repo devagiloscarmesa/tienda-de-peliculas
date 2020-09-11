@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import PeliculaTable from './PeliculaTable';
+import { useParams } from 'react-router-dom';
 
 export default function HVerPelicula() {
     const [pelicula, setPelicula] = useState({
@@ -14,12 +15,13 @@ export default function HVerPelicula() {
         source: "",
         tags: []
     })
+    let {id} = useParams(); 
 
     useEffect(() => {
-        let {id} = useParams(); 
         let respuesta = axios.get(`https://api-movies-users.vercel.app/movies/${id}`)
-        respusta.then( (pelicula) => setPelicula({...pelicula}) )
+        respuesta.then( (pelicula) => setPelicula({...pelicula.data}) )
     }, [])
+    console.log(pelicula)
     return (
         <PeliculaTable {...pelicula} />
     )

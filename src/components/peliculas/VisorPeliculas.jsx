@@ -68,8 +68,6 @@ export default function VisorPeliculas(props) {
                 <p>Nombre: {contextUsuario.fullName}</p>
                 <p>Apellido: {contextUsuario.lastName}</p>
             </div>
-            <MiniPelicula />
-            <VerPelicula/>
         </>
     )
 }

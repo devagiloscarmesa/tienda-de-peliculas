@@ -1,4 +1,5 @@
 import React from 'react'
+import { Table } from 'react-bootstrap'
 
 export default function PeliculaTable(props) {
     const {
@@ -15,7 +16,7 @@ export default function PeliculaTable(props) {
     return (
         <Table striped bordered hover>
                 <thead>
-                    <tr><td>Datos de la Película</td></tr>
+                    <tr><td colSpan={2}>Datos de la Película</td></tr>
                 </thead>
                 <tbody>
                     <tr>
@@ -32,7 +33,7 @@ export default function PeliculaTable(props) {
                     </tr>
                     <tr>
                         <td>Carátula</td>
-                        <td>{cover}</td>
+                        <td><img className="img-fluid" src={cover} alt={title} /></td>
                     </tr>
                     <tr>
                         <td>Descripción</td>
@@ -54,7 +55,7 @@ export default function PeliculaTable(props) {
                         <td>Tags</td>
                         <td>
                             <ul>
-                                {tags.map(tag => <li>{tag}</li>)}
+                                {tags.map((tag,i) => <li key={i}>{tag}</li>)}
                             </ul>
                         </td>
                     </tr>
